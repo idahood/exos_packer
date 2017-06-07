@@ -1,0 +1,33 @@
+{
+  "variables":{
+    "packer_cache_dir": "/tmp",
+    "my_ver": ""
+  },
+  "builders": [{
+    "type": "virtualbox-ovf",
+    "source_path": "exos_{{user `version`}}/exos_{{user `version`}}.ova",
+    "boot_wait": "30s",
+    "ssh_username": "vagrant",
+    "ssh_password": "vagrant",
+    "guest_additions_mode": "disable",
+    "virtualbox_version_file": "",
+    "boot_command": [
+      "admin<enter>",
+      "<enter>",
+      "q<enter>",
+      "enable dhcp vlan Mgmt<enter>",
+      "enable ssh2<enter>",
+      "y<enter>",
+      "create account admin vagrant vagrant<enter>",
+      "save config<enter>",
+      "y<enter>"
+    ],
+    "shutdown_command": "",
+    "shutdown_timeout": "1s",
+    "headless": true
+  }],
+  "post-processors": [{
+    "type": "vagrant",
+    "output": "exos_{{user `version`}}/exos_{{user `version`}}.box"
+  }]
+}

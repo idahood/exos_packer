@@ -1,0 +1,37 @@
+{
+  "variables":
+  {
+    "packer_cache_dir": "/tmp",
+    "version": ""
+  },
+  "builders":
+  [
+    {
+      "type": "virtualbox-iso",
+      "guest_os_type": "Linux",
+      "iso_url": "https://github.com/extremenetworks/Virtual_EXOS/raw/master/vm-{{user `version`}}.iso",
+      "iso_checksum_type": "none",
+      "iso_target_path": "{{user `packer_cache_dir`}}/{{user `version`}}.iso",
+      "communicator": "none",
+      "guest_additions_mode": "disable",
+      "virtualbox_version_file": "",
+      "disk_size": "256",
+      "vboxmanage": [
+        ["storageattach", "{{.Name}}", "--storagectl", "IDE Controller", "--port", "1", "--device", "0", "--type", "dvddrive", "--medium", "{{user `packer_cache_dir`}}/{{user `version`}}.iso"],
+        ["modifyvm", "{{.Name}}", "--memory", "256"],
+        ["modifyvm", "{{.Name}}", "--cpus", "1"]
+      ],
+      "boot_command": [
+        "Y<enter>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10><wait10>"
+      ],
+      "format": "ova",
+      "vboxmanage_post": [
+        ["storageattach", "{{.Name}}", "--storagectl", "IDE Controller", "--port", "1", "--device", "0", "--type", "dvddrive", "--medium", "none"]
+      ],
+      "output_directory": "exos_{{user `version`}}",
+      "vm_name": "exos_{{user `version`}}",
+      "headless": true
+    }
+  ]
+}
