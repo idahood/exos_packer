@@ -1,7 +1,7 @@
 {
   "variables":{
     "packer_cache_dir": "/tmp",
-    "my_ver": ""
+    "version": ""
   },
   "builders": [{
     "type": "virtualbox-ovf",
