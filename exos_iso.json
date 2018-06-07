@@ -19,7 +19,11 @@
       "vboxmanage": [
         ["storageattach", "{{.Name}}", "--storagectl", "IDE Controller", "--port", "1", "--device", "0", "--type", "dvddrive", "--medium", "{{user `packer_cache_dir`}}/{{user `version`}}.iso"],
         ["modifyvm", "{{.Name}}", "--memory", "256"],
-        ["modifyvm", "{{.Name}}", "--cpus", "1"]
+        ["modifyvm", "{{.Name}}", "--cpus", "1"],
+        ["modifyvm", "{{.Name}}", "--nic2", "intnet"],
+        ["modifyvm", "{{.Name}}", "--intnet1", "intnet"],
+        ["modifyvm", "{{.Name}}", "--cableconnected2", "on"],
+        ["modifyvm", "{{.Name}}", "--nicpromisc2", "allow-all"]
       ],
       "boot_command": [
         "Y<enter>",
