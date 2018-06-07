@@ -1,4 +1,8 @@
 # EXOS
+## Requirements
+packer
+vagrant
+virtualbox
 ## Usage
 ```
 ./build.py --version $VERSION
